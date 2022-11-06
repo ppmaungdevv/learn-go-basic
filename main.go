@@ -20,7 +20,16 @@ func main()  {
 	*	can accept only the same data type and mixed type won't work
 	*	
 	*/
-	var bookings [50]string // <= alternative syntac for delcaring empty array
+	// var bookings [50]string // <= alternative syntac for delcaring empty array
+
+	/* --------- slice --------
+	*	is abstraction of an array
+	*	more flexible with dynamic size or sub-array of its own
+	*	do have a size but resized when needed
+	*	to be simple a dynamic size array with different data assigining methods
+	*/
+	var bookings []string // <= a slice
+
 
 	fmt.Printf("conference_name is a %T, conference_tickets is an %T, remaining_tickets is an %T\n", conference_name, conference_tickets, remaining_tickets)
 
@@ -40,7 +49,8 @@ func main()  {
 	
 	// invalid operation will if the variables in the calculation do not have the same types
 	remaining_tickets = remaining_tickets - user_tickets
-	bookings[0] = full_name
+	// bookings[0] = full_name // use this way to add data to array
+	bookings = append(bookings, full_name) // use this way to add data to slice
 	// bookings[52] = full_name // out of bond error will show
 
 	fmt.Printf("Array: %v\n", bookings)
