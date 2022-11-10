@@ -37,46 +37,60 @@ func main()  {
 	fmt.Printf("Total Seats: %v\nRemaining Tickets: %v\n", conference_tickets, remaining_tickets )
 	fmt.Println("Get tickets")
 
-	for { // for without any range is an infinite loop
+	// for { // for without any thing is an infinite loop
+	for remaining_tickets > 0 {
 
-		var full_name string
-		var user_tickets uint
-		var email string
-	
-		fmt.Println(&remaining_tickets) // &remainingTickets is a pointer which is a special variable to point the memory location of a variable
-	
-		// when using scan, asking for user input, need to use pointer "&var"
-		fmt.Println("Enter Full Name:")
-		fmt.Scan(&full_name)
-		fmt.Println("Enter Email:")
-		fmt.Scan(&email)
-		fmt.Println("Enter Number of Tickets:")
-		fmt.Scan(&user_tickets)
+			var full_name string
+			var email string
+			var user_tickets uint
 		
-		// invalid operation will if the variables in the calculation do not have the same types
-		remaining_tickets = remaining_tickets - user_tickets
-		// bookings[0] = full_name // use this way to add data to array
-		bookings = append(bookings, full_name) // use this way to add data to slice
-		// bookings[52] = full_name // out of bond error will show
-	
-		fmt.Printf("Array: %v\n", bookings)
-		fmt.Printf("First Element: %v\n", bookings[0])
-		fmt.Printf("Array Type: %T\n", bookings)
-		fmt.Printf("Array length: %v\n", len(bookings))
-		fmt.Printf("%v booked %v tickets. Confirmation mail will be sent to %v\n", full_name, user_tickets, email)
-		fmt.Println("Remaining Tickets: ", remaining_tickets)
-		first_names := []string{}
+			fmt.Println(&remaining_tickets) // &remainingTickets is a pointer which is a special variable to point the memory location of a variable
 		
-		// range iterates for different data structure, not only for iterating array and slices
-		// for array & slices, range provides index and value for each element
-		// _ is called blank identifier, used for unused variable and can also be used to call only init function of another package
-		for _, ele := range bookings {
-			var names = strings.Fields(ele) // strings.Fields() splits the string at ' ', strings.Fields('Pyae Phyo M g') => ['Pyae', 'Phyo', 'M', 'g']
-			first_names = append(first_names, names[0])
-		}
+			// when using scan, asking for user input, need to use pointer "&var"
+			fmt.Println("Enter Full Name:")
+			fmt.Scan(&full_name)
+			fmt.Println("Enter Email:")
+			fmt.Scan(&email)
+			fmt.Println("Enter Number of Tickets:")
+			fmt.Scan(&user_tickets)
+			
+			// invalid operation will if the variables in the calculation do not have the same types
+			remaining_tickets = remaining_tickets - user_tickets
 
-		fmt.Printf("First Names: %v", first_names)
+			if remaining_tickets < user_tickets {
+				fmt.Printf("we only have %v, can't book %v tickets", remaining_tickets, user_tickets)
+				continue 
+				// break will stop the loop
+				// continue will skip all the code below and restart the next iteration
+			}
+
+			// bookings[0] = full_name // use this way to add data to array
+			bookings = append(bookings, full_name) // use this way to add data to slice
+			// bookings[52] = full_name // out of bond error will show
 		
+			fmt.Printf("Array: %v\n", bookings)
+			fmt.Printf("First Element: %v\n", bookings[0])
+			fmt.Printf("Array Type: %T\n", bookings)
+			fmt.Printf("Array length: %v\n", len(bookings))
+			fmt.Printf("%v booked %v tickets. Confirmation mail will be sent to %v\n", full_name, user_tickets, email)
+			fmt.Println("Remaining Tickets: ", remaining_tickets)
+
+			first_names := []string{}
+			
+			// range iterates for different data structure, not only for iterating array and slices
+			// for array & slices, range provides index and value for each element
+			// _ is called blank identifier, used for unused variable and can also be used to call only init function of another package
+			for _, ele := range bookings {
+					var names = strings.Fields(ele) // strings.Fields() splits the string at ' ', strings.Fields('Pyae Phyo M g') => ['Pyae', 'Phyo', 'M', 'g']
+					first_names = append(first_names, names[0])
+			}
+
+			fmt.Printf("First Names: %v", first_names)
+			// var no_tickets bool = remaining_tickets == 0 // boolean data type
+			if remaining_tickets == 0 {
+				fmt.Println("Booked out!")
+				break
+			}
 	}
 
 }
