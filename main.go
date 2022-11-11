@@ -13,6 +13,8 @@ func main()  {
 	
 	// remaining_tickets = -1 // this will be an error as the varibale was declared as an unsinged int
 	
+	greetUser(conference_name, conference_tickets, remaining_tickets)
+
 	/* -------- array -----------
 	*	are fixed size
 	*	var arr = [50]{} <= empty array
@@ -33,8 +35,6 @@ func main()  {
 	
 	fmt.Printf("conference_name is a %T, conference_tickets is an %T, remaining_tickets is an %T\n", conference_name, conference_tickets, remaining_tickets)
 	
-	fmt.Printf("Welcome %v booking application\n", conference_name)
-	fmt.Printf("Total Seats: %v\nRemaining Tickets: %v\n", conference_tickets, remaining_tickets )
 	fmt.Println("Get tickets")
 
 	// for { // for without any thing is an infinite loop
@@ -54,9 +54,7 @@ func main()  {
 			fmt.Println("Enter Number of Tickets:")
 			fmt.Scan(&user_tickets)
 
-			is_valid_name := len(full_name) >= 2
-			is_valid_email := strings.Contains(email, "@")
-			is_valid_ticket := user_tickets > 0 && remaining_tickets < user_tickets
+			is_valid_name, is_valid_email, is_valid_ticket := validateInputs(full_name, email, remaining_tickets, user_tickets)
 			
 			
 			// if remaining_tickets < user_tickets {
@@ -80,17 +78,8 @@ func main()  {
 				fmt.Printf("%v booked %v tickets. Confirmation mail will be sent to %v\n", full_name, user_tickets, email)
 				fmt.Println("Remaining Tickets: ", remaining_tickets)
 	
-				first_names := []string{}
-				
-				// range iterates for different data structure, not only for iterating array and slices
-				// for array & slices, range provides index and value for each element
-				// _ is called blank identifier, used for unused variable and can also be used to call only init function of another package
-				for _, ele := range bookings {
-						var names = strings.Fields(ele) // strings.Fields() splits the string at ' ', strings.Fields('Pyae Phyo M g') => ['Pyae', 'Phyo', 'M', 'g']
-						first_names = append(first_names, names[0])
-				}
+				printFirstNames(bookings)
 	
-				fmt.Printf("First Names: %v", first_names)
 				// var no_tickets bool = remaining_tickets == 0 // boolean data type
 				if remaining_tickets == 0 {
 					fmt.Println("Booked out!")
@@ -104,17 +93,64 @@ func main()  {
 
 	}
 
-	city := "Bangkok"
-
-	switch city {
-		case "Singapore", "Bangkok":
-			fmt.Printf("want to work in %v", city)
-		case "Lashio", "Hopin":
-			fmt.Printf("hometown")
-		case "Mandalay":
-			fmt.Printf("live in %v", city)
-		default:
-			fmt.Printf("unkonwn")
-	}
+	// city := "Bangkok"
+	// switch city {
+	// 	case "Singapore", "Bangkok":
+	// 		fmt.Printf("want to work in %v", city)
+	// 	case "Lashio", "Hopin":
+	// 		fmt.Printf("hometown")
+	// 	case "Mandalay":
+	// 		fmt.Printf("live in %v", city)
+	// 	default:
+	// 		fmt.Printf("unkonwn")
+	// }
 
 }
+
+
+func greetUser(conf_name string, avail_tickets int, remain_tickets uint)  {
+	fmt.Printf("Welcome to %v dude! \n", conf_name)
+	fmt.Printf("Total Seats: %v\nRemaining Tickets: %v\n", avail_tickets, remain_tickets )
+}
+
+/* 
+*	watch the tuto below for pointer and how it's useful for function
+*	https://www.youtube.com/watch?v=sTFJtxJXkaY
+*/
+
+func printFirstNames(bookings []string)  {
+	first_names := []string{}
+	// range iterates for different data structure, not only for iterating array and slices
+	// for array & slices, range provides index and value for each element
+	// _ is called blank identifier, used for unused variable and can also be used to call only init function of another package
+	for _, ele := range bookings {
+		var names = strings.Fields(ele) // strings.Fields() splits the string at ' ', strings.Fields('Pyae Phyo M g') => ['Pyae', 'Phyo', 'M', 'g']
+		first_names = append(first_names, names[0])
+	}
+	fmt.Printf("First Names: %v", first_names)
+}
+/* 
+*	function in GO
+*	func functionName(param1 param1_data_type, param2 param2_data_type,... ) (return_data_type,...)
+*	
+*	fucntion with one return value
+*	func validateInputs(full_name string, email string, user_tickets string) bool {
+*		return true
+*	}
+*
+*	unlike other languages GO functions can return multiple values
+*
+*	fucntion with one return value
+*	func validateInputs(full_name string, email string, user_tickets string) (bool, bool, bool) {
+*		return true, true, true
+*	}
+*/
+
+func validateInputs(full_name string, email string, remaining_tickets uint, user_tickets uint) (bool, bool, bool) {
+	is_valid_name := len(full_name) >= 2
+	is_valid_email := strings.Contains(email, "@")
+	is_valid_ticket := user_tickets > 0 && remaining_tickets < user_tickets
+	return is_valid_name, is_valid_email, is_valid_ticket
+}
+
+// continue from package level variables part
