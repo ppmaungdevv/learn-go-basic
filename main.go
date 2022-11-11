@@ -104,4 +104,17 @@ func main()  {
 
 	}
 
+	city := "Bangkok"
+
+	switch city {
+		case "Singapore", "Bangkok":
+			fmt.Printf("want to work in %v", city)
+		case "Lashio", "Hopin":
+			fmt.Printf("hometown")
+		case "Mandalay":
+			fmt.Printf("live in %v", city)
+		default:
+			fmt.Printf("unkonwn")
+	}
+
 }
