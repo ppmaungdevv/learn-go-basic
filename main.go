@@ -3,6 +3,7 @@ package main
 import (
 	"Booking-app/validator" // when using another package, need to add module name of that package
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -37,6 +38,30 @@ func main() {
 	*	to be simple a dynamic size array with different data assigining methods
 	 */
 	var bookings []string // <= a slice
+
+	/*  -------- map ---------
+	*	map is a collection of key value pairs
+	*	[
+	*		"full_name": "ppm",
+	*	]
+	*	all keys have the same data type
+	*	all values have the same data type
+	*	can't mix data type for value
+	*	to create an empty map => make(map[string]string)
+	*	creating a slice of maps => var users = make([]map[string]string, size) <= need to assign initial size of the slice
+	 */
+
+	var user_data = make(map[string]string)
+	user_data["name"] = "PPM"
+	user_data["email"] = "ppm@m.co"
+	// user_data["age"] = 27 // this will give an error because of different data type
+	user_data["age"] = strconv.FormatUint(uint64(27), 10) // convert uint data to string
+
+	var users = make([]map[string]string, 0) // <= this is a slice of maps
+
+	users = append(users, user_data)
+
+	fmt.Printf("maps %v \n", users)
 
 	fmt.Printf("conference_name is a %T, conference_tickets is an %T, remaining_tickets is an %T\n", conference_name, conference_tickets, remaining_tickets)
 
