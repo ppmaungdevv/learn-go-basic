@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"Booking-app/validator" // when using another package, need to add module name of that package
 )
 
 var conference_name = "GO conference" // cannot use := declaration in package level varibles
@@ -58,7 +59,9 @@ func main()  {
 			fmt.Println("Enter Number of Tickets:")
 			fmt.Scan(&user_tickets)
 
-			is_valid_name, is_valid_email, is_valid_ticket := validateInputs(full_name, email, remaining_tickets, user_tickets) // moved to helper file
+			// is_valid_name, is_valid_email, is_valid_ticket := validateInputs(full_name, email, remaining_tickets, user_tickets) // moved to helper file
+
+			is_valid_name, is_valid_email, is_valid_ticket := validator.ValidateInputsFromValidator(full_name, email, remaining_tickets, user_tickets) // when importing from another package, need to use like this => packagename.functionname()
 			
 			// if remaining_tickets < user_tickets {
 				// 	fmt.Printf("we only have %v, can't book %v tickets", remaining_tickets, user_tickets)
