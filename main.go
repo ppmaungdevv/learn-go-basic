@@ -58,8 +58,7 @@ func main()  {
 			fmt.Println("Enter Number of Tickets:")
 			fmt.Scan(&user_tickets)
 
-			is_valid_name, is_valid_email, is_valid_ticket := validateInputs(full_name, email, remaining_tickets, user_tickets)
-			
+			is_valid_name, is_valid_email, is_valid_ticket := validateInputs(full_name, email, remaining_tickets, user_tickets) // moved to helper file
 			
 			// if remaining_tickets < user_tickets {
 				// 	fmt.Printf("we only have %v, can't book %v tickets", remaining_tickets, user_tickets)
@@ -148,12 +147,3 @@ func printFirstNames(bookings []string)  {
 *		return true, true, true
 *	}
 */
-
-func validateInputs(full_name string, email string, remaining_tickets uint, user_tickets uint) (bool, bool, bool) {
-	is_valid_name := len(full_name) >= 2
-	is_valid_email := strings.Contains(email, "@")
-	is_valid_ticket := user_tickets > 0 && remaining_tickets < user_tickets
-	return is_valid_name, is_valid_email, is_valid_ticket
-}
-
-// continue from package level variables part
