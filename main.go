@@ -5,15 +5,19 @@ import (
 	"strings"
 )
 
+var conference_name = "GO conference" // cannot use := declaration in package level varibles
+const conference_tickets = 50
+var remaining_tickets uint = 50
+
 func main()  {
 	// there is no variable lifting like JS, so makes more sense to declare variable at the top
-	conference_name := "GO conference" // this can only be used with var not with const and specific data type declaration 
-	const conference_tickets = 50
-	var remaining_tickets uint = 50 // uint => unsigned int
+	// conference_name := "GO conference" // this can only be used with var not with const and specific data type declaration 
+	// const conference_tickets = 50
+	// var remaining_tickets uint = 50 // uint => unsigned int
 	
 	// remaining_tickets = -1 // this will be an error as the varibale was declared as an unsinged int
 	
-	greetUser(conference_name, conference_tickets, remaining_tickets)
+	greetUser()
 
 	/* -------- array -----------
 	*	are fixed size
@@ -107,10 +111,9 @@ func main()  {
 
 }
 
-
-func greetUser(conf_name string, avail_tickets int, remain_tickets uint)  {
-	fmt.Printf("Welcome to %v dude! \n", conf_name)
-	fmt.Printf("Total Seats: %v\nRemaining Tickets: %v\n", avail_tickets, remain_tickets )
+func greetUser()  {
+	fmt.Printf("Welcome to %v dude! \n", conference_name)
+	fmt.Printf("Total Seats: %v\nRemaining Tickets: %v\n", conference_tickets, remaining_tickets)
 }
 
 /* 
