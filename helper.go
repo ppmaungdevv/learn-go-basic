@@ -1,12 +1,12 @@
 package main
 
-/* 
+/*
 *
 *	in GO, code can be split into multiple files under the same package name
 *	when running multiple GO file, same package,
-*	1. use "go run ." otherwise all the file names must be specified like "go run main.go helper.go" 
+*	1. use "go run ." otherwise all the file names must be specified like "go run main.go helper.go"
 *	2. functions inside separate file with the same package does not need to use with import
-*/
+ */
 
 import "strings"
 
