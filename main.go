@@ -12,6 +12,21 @@ const conference_tickets = 50
 
 var remaining_tickets uint = 50
 
+/*
+*	----------- struct (stands for structure)
+*	allows to create mixed data types of data structure, a little similar to objects in JS
+*	"type" keyword needs to create struct
+*	type StructName struct{}
+*
+*	type keywords create a new data type with the name behind it
+ */
+type UserInfoStruct struct {
+	name    string
+	email   string
+	age     uint
+	married bool
+}
+
 func main() {
 	// there is no variable lifting like JS, so makes more sense to declare variable at the top
 	// conference_name := "GO conference" // this can only be used with var not with const and specific data type declaration
@@ -19,6 +34,17 @@ func main() {
 	// var remaining_tickets uint = 50 // uint => unsigned int
 
 	// remaining_tickets = -1 // this will be an error as the varibale was declared as an unsinged int
+
+	// assigning to a struct data type variable
+	var user_info = UserInfoStruct{
+		name:    "Pyae",
+		email:   "p@m.co",
+		age:     27,
+		married: false,
+	}
+
+	fmt.Printf("user info struct: %v \n", user_info)
+	fmt.Printf("get name from user info struct: %v \n", user_info.name)
 
 	greetUser()
 
