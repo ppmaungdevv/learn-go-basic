@@ -32,11 +32,42 @@ func main() {
 	// var bookings [50]string // <= alternative syntac for delcaring empty array
 
 	/* --------- slice --------
-	*	is abstraction of an array
-	*	more flexible with dynamic size or sub-array of its own
-	*	do have a size but resized when needed
-	*	to be simple a dynamic size array with different data assigining methods
-	 */
+		*	is abstraction of an array
+		*	more flexible with dynamic size or sub-array of its own
+		*	do have a size but resized when needed
+		*	to be simple a dynamic size array with different data assigining methods
+		*	read this article for detail understanding about slice => https://gosamples.dev/capacity-and-length/
+	    *	a slice is a data structure describing a piece of an array with three properties (ptr, len, cap)
+	    *	var slice_test = make([]int, 2, 3)
+	    *	var slice_test = make([]int, 3)
+	    *	slice_test[0] = 10
+		*	slice_test[1] = 20
+		*	fmt.Printf("last index %v \n", slice_test[2])
+	    *	slice_test = append(slice_test, 20)
+	    *	slice_test = append(slice_test, 30)
+	    *	slice_test = append(slice_test, 40)
+	    *	slice_test = append(slice_test, 50)
+	    *	slice_test = append(slice_test, 60)
+	    *	slice_test = append(slice_test, 70)
+	    *	slice_test = append(slice_test, 80)
+	    *	slice_test = append(slice_test, 90)
+	    *	slice_test = append(slice_test, 100)
+	    *	slice_test = append(slice_test, 110)
+
+	    *	fmt.Printf("slice test %v \n", slice_test)
+	    *	fmt.Printf("slice capacity %v \n", cap(slice_test))
+	    *	fmt.Printf("slice length %v \n", len(slice_test))
+
+	    *	var a []int            // nil slice
+	    *	b := []int{0, 1, 2, 3} // slice initialized with specified array
+	    *	c := make([]int, 4)    // slice of size 4 initialized with zero-valued array of size 4
+	    *	d := make([]int, 4, 5) // slice of size 4 initialized with zero-valued array of size 5
+
+	    *	fmt.Printf("a: length: %d, capacity: %d, pointer to underlying array: %p, data: %v, is nil: %t\n", len(a), cap(a), a, a, a == nil)
+	    *	fmt.Printf("b: length: %d, capacity: %d, pointer to underlying array: %p, data: %v, is nil: %t\n", len(b), cap(b), b, b, b == nil)
+	    *	fmt.Printf("c: length: %d, capacity: %d, pointer to underlying array: %p, data: %v, is nil: %t\n", len(c), cap(c), c, c, c == nil)
+	    *	fmt.Printf("d: length: %d, capacity: %d, pointer to underlying array: %p, data: %v, is nil: %t\n", len(d), cap(d), d, d, d == nil)
+	*/
 	var bookings []string // <= a slice
 
 	/*  -------- map ---------
