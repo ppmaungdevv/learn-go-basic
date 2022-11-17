@@ -51,7 +51,7 @@ func (p Person) PrintInfo() {
 /* 
 *	------------- type embedding for composition -------------
 *	create bigger and more concrete types by embedding the Person type
-*	
+*	can override the embedded methods by using the same method name
 */
 
 type Admin struct {
@@ -59,9 +59,29 @@ type Admin struct {
 	roles []string
 }
 
+// func (a Admin) PrintAdminInfo()  { // <= this won't override the embedded method
+func (a Admin) PrintInfo()  {
+	a.Person.PrintInfo()
+	fmt.Printf("Skills: ")
+	for _, v := range a.roles {
+		fmt.Printf(v)
+	}
+	fmt.Printf("\n")
+}
+
 type Member struct {
 	Person
 	skills []string
+}
+
+// func (m Member) PrintMemberInfo()  { // <= this won't override the embedded method
+func (m Member) PrintInfo()  {
+	m.Person.PrintInfo()
+	fmt.Printf("Skills: ")
+	for _, v := range m.skills {
+		fmt.Printf(" %v", v)
+	}
+	fmt.Printf("\n")
 }
 
 func main()  {
@@ -93,8 +113,10 @@ func main()  {
 	// as both Member and Admin embedded the Person, all the methods of Person are available to them
 	a.PrintName()
 	a.PrintInfo()
+	// a.PrintAdminInfo()
 	m.PrintName()
 	m.PrintInfo()
+	// m.PrintMemberInfo()
 }
 
 // import (
