@@ -18,13 +18,13 @@ type Person struct {
 *	func (variable Struct) FuncName() => (variable Struct) -> is a receiver
 */
 
-// func (p Person) PrintName() {
-// 	fmt.Printf("Person Name %v \n", p.name)
-// }
+func (p Person) PrintName() {
+	fmt.Printf("Person Name %v \n", p.name)
+}
 
-// func (p Person) PrintInfo() {
-// 	fmt.Printf("Person Info %v \n", p)
-// }
+func (p Person) PrintInfo() {
+	fmt.Printf("Person Info %v \n", p)
+}
 
 /* 
 *	-------- struct method with pointer receiver ------------
@@ -33,31 +33,68 @@ type Person struct {
 *	If the struct has a pointer receiver on some its methods, it is better to use it for the rest of the methods because it enables better consistency and predictability for the struct behaviors
 */
 
-func (p *Person) PrintName() {
-	fmt.Printf("Person Name %v \n", p.name)
+// func (p *Person) PrintName() {
+// 	fmt.Printf("Person Name %v \n", p.name)
+// }
+
+// func (p *Person) PrintInfo() {
+// 	fmt.Printf("Person Info %v \n", p)
+// }
+
+// func (p *Person) ChangeLocation(new_location string) {
+// 	fmt.Printf("OG localition %v \n", p.location)
+// 	p.location = new_location
+// 	fmt.Printf("Changed location %v \n", p.location)
+// }
+
+
+/* 
+*	------------- type embedding for composition -------------
+*	create bigger and more concrete types by embedding the Person type
+*	
+*/
+
+type Admin struct {
+	Person
+	roles []string
 }
 
-func (p *Person) PrintInfo() {
-	fmt.Printf("Person Info %v \n", p)
-}
-
-func (p *Person) ChangeLocation(new_location string) {
-	fmt.Printf("OG localition %v \n", p.location)
-	p.location = new_location
-	fmt.Printf("Changed location %v \n", p.location)
+type Member struct {
+	Person
+	skills []string
 }
 
 func main()  {
-	p :=  &Person {
+	p :=  Person {
 		name: "Pyae",
 		email: "pp@m.co",
 		Dob: time.Date(1990, time.August, 23, 0, 0, 0, 0, time.UTC),
 		location: "Lashio",
 	}
+
+	a := Admin {
+		Person: p,
+		roles: []string{"Senior"},
+	}
+
+	m := Member{
+		Person: Person {
+			name: "Phyo",
+			email: "phyo@m.co",
+			Dob: time.Date(1991, time.August, 23, 0, 0, 0, 0, time.UTC),
+			location: "Lashio",
+		},
+		skills: []string{"Vue", "Nuxt", "GO", "AWS"},
+	}
+
 	fmt.Printf("Person type %v \n", p)
 	p.PrintName()
-	p.ChangeLocation("Mandalay")
 	p.PrintInfo()
+	// as both Member and Admin embedded the Person, all the methods of Person are available to them
+	a.PrintName()
+	a.PrintInfo()
+	m.PrintName()
+	m.PrintInfo()
 }
 
 // import (
