@@ -11,22 +11,52 @@ type Person struct {
 	location string
 }
 
-func (p Person) PrintName() {
+/* 
+*	--------- struct methods ------------
+*	is similar to function but include a receiver
+*	specify the method receiver between the func keyword and the name of the function
+*	func (variable Struct) FuncName() => (variable Struct) -> is a receiver
+*/
+
+// func (p Person) PrintName() {
+// 	fmt.Printf("Person Name %v \n", p.name)
+// }
+
+// func (p Person) PrintInfo() {
+// 	fmt.Printf("Person Info %v \n", p)
+// }
+
+/* 
+*	-------- struct method with pointer receiver ------------
+*	to modify the data of a receiver from the method, the receiver must be a pointer
+*	to call a pointer receiver method, create the Person type instance by providing the ampersand (&) operator
+*	If the struct has a pointer receiver on some its methods, it is better to use it for the rest of the methods because it enables better consistency and predictability for the struct behaviors
+*/
+
+func (p *Person) PrintName() {
 	fmt.Printf("Person Name %v \n", p.name)
 }
 
-func (p Person) PrintInfo() {
+func (p *Person) PrintInfo() {
 	fmt.Printf("Person Info %v \n", p)
 }
 
+func (p *Person) ChangeLocation(new_location string) {
+	fmt.Printf("OG localition %v \n", p.location)
+	p.location = new_location
+	fmt.Printf("Changed location %v \n", p.location)
+}
+
 func main()  {
-	p :=  Person {
+	p :=  &Person {
 		name: "Pyae",
 		email: "pp@m.co",
 		Dob: time.Date(1990, time.August, 23, 0, 0, 0, 0, time.UTC),
+		location: "Lashio",
 	}
 	fmt.Printf("Person type %v \n", p)
 	p.PrintName()
+	p.ChangeLocation("Mandalay")
 	p.PrintInfo()
 }
 
