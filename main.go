@@ -5,6 +5,17 @@ import (
 	"time"
 )
 
+/* 
+* --------- interface ----------
+*	a collection struct behaviours, simplest and easiest way to say about interface
+*	for more understanding, watch this => https://www.youtube.com/watch?v=lh_Uv2imp14&list=PLzMcBGfZo4-mtY_SE3HuzQJzuj4VlUG0q&index=22
+*/
+
+type User interface {
+	PrintName()
+	PrintInfo()
+}
+
 type Person struct {
 	name, email string // variable with the same data type can be written in comma separated line
 	Dob time.Time
@@ -19,11 +30,11 @@ type Person struct {
 */
 
 func (p Person) PrintName() {
-	fmt.Printf("Person Name %v \n", p.name)
+	fmt.Printf("Person Name: %v \n", p.name)
 }
 
 func (p Person) PrintInfo() {
-	fmt.Printf("Person Info %v \n", p)
+	fmt.Printf("Person Info: %v \n", p)
 }
 
 /* 
@@ -62,7 +73,7 @@ type Admin struct {
 // func (a Admin) PrintAdminInfo()  { // <= this won't override the embedded method
 func (a Admin) PrintInfo()  {
 	a.Person.PrintInfo()
-	fmt.Printf("Skills: ")
+	fmt.Printf("Roles: ")
 	for _, v := range a.roles {
 		fmt.Printf(v)
 	}
@@ -82,6 +93,19 @@ func (m Member) PrintInfo()  {
 		fmt.Printf(" %v", v)
 	}
 	fmt.Printf("\n")
+}
+
+type Team struct {
+	name, description string
+	Users []User
+}
+
+func (t Team) PrintTeamInfo() {
+	fmt.Printf("Team: %s \nDesc: %s \n", t.name, t.description)
+	for _, user := range t.Users {
+		user.PrintName()
+		user.PrintInfo()
+	}
 }
 
 func main()  {
@@ -107,16 +131,31 @@ func main()  {
 		skills: []string{"Vue", "Nuxt", "GO", "AWS"},
 	}
 
-	fmt.Printf("Person type %v \n", p)
-	p.PrintName()
-	p.PrintInfo()
-	// as both Member and Admin embedded the Person, all the methods of Person are available to them
-	a.PrintName()
-	a.PrintInfo()
-	// a.PrintAdminInfo()
-	m.PrintName()
-	m.PrintInfo()
-	// m.PrintMemberInfo()
+	u := []User{a, m}
+
+	team := Team{
+		name: "GO",
+		description: "GO learn team",
+		Users: u,
+	}
+
+	team.PrintTeamInfo()
+
+	// for _, user := range u {
+	// 	user.PrintName()
+	// 	user.PrintInfo()
+	// }
+
+	// fmt.Printf("Person type %v \n", p)
+	// p.PrintName()
+	// p.PrintInfo()
+	// // as both Member and Admin embedded the Person, all the methods of Person are available to them
+	// a.PrintName()
+	// a.PrintInfo()
+	// // a.PrintAdminInfo()
+	// m.PrintName()
+	// m.PrintInfo()
+	// // m.PrintMemberInfo()
 }
 
 // import (
